@@ -2,6 +2,12 @@ import sounddevice as sd
 import numpy as np
 import soundfile as sf
 import git
+import os
+
+f_name = 'new_sound_file.wav'
+
+if os.path.isfile(f_name):
+    os.remove(f_name)
 
 repo_dir = '~/MediDrone'
 commit_message = 'added sound file to server from recording_sound.py'
@@ -30,7 +36,6 @@ duration = 3
 curr_data = sd.rec(int(duration * fs), samplerate=fs, channels=2)
 sd.wait(10)
 
-f_name = 'new_sound_file.wav'
 
 sf.write(f_name, curr_data, fs)
 
