@@ -33,7 +33,7 @@ def reset(f_name):
 def GitPush():
     try:
         repo = git.Repo(repo_dir)
-        repo.git.add('--all')
+        repo.git.add(update=True)
         repo.index.commit(commit_message)
         origin = repo.remote(name='origin')
         origin.push()
