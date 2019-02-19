@@ -26,14 +26,14 @@ commit_message = 'drone_init.txt sent'
 
 #reset a file in git
 def reset(f_name):
-    if os.path.isfile('/server/drone_init.txt'):
+    if os.path.isfile('drone_init.txt'):
         os.remove(f_name)
 
 #function to push all
 def GitPush():
     try:
         repo = git.Repo(repo_dir)
-        repo.git.add('\server\drone_init.txt')
+        repo.git.add('--all')
         repo.index.commit(commit_message)
         origin = repo.remote(name='origin')
         origin.push()
@@ -54,7 +54,7 @@ def SpeechAnalysis(input_sound):
         if ('help' in message) and ('medic' in message):
             file = open(f_drone, "w")
             file.write("0 \n")
-            file.write("100")
+            file.write("200")
             file.close()
             GitPush()
             print('sending drone file')
@@ -63,9 +63,8 @@ def SpeechAnalysis(input_sound):
     except:
         print('no voice detected this block')
         return False
-        
-        
-reset(f_drone)
+
+reset(f_drone)  
 reset(f_sound1)
 
 sent_to_drone = False
