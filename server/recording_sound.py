@@ -57,14 +57,19 @@ def SpeechAnalysis(input_sound):
             file.close()
             GitPush(f_drone)
             print('sending drone file')
+            return True
+        return False
     except:
         print('no voice detected this block')
+        return False
         
         
 reset(f_drone)
 reset(f_sound1)
 
-while True:
+sent_to_drone = False
+
+while not sent_to_drone:
     print('recording!')
     curr_data = sd.rec(int(duration * fs), samplerate=fs, channels=2)
     time.sleep(duration - 0.3)
@@ -72,5 +77,6 @@ while True:
     
     #saving sound file
     sf.write(f_sound1, curr_data, fs)
-    SpeechAnalysis(f_sound1)
+    if SpeechAnalysis(f_sound1):
+        sent_to_drone = True
     
