@@ -20,6 +20,33 @@ mambo = Mambo(mamboAddr, use_wifi=False)
 init_x = 0
 init_y = 0
 
+repo = git.Repo('/home/pi/MediDrone/MediDrone')
+print('init repo')
+o = repo.remotes.origin
+o.pull()
+print('pull from repo')
+
+drone_to_fly = False
+    
+while not drone_to_fly:
+    if os.path.isfile("drone_init.txt"):
+        file = open('drone_init.txt', 'r')
+        lines = file.readlines()
+        file.close()
+        line_num = 0
+        for line in lines:
+            line = line.strip()
+            if line_num == 0:
+                final_x = line
+            else:
+                final_y = line
+            line_num += 1
+        drone_to_fly = True
+        o.pull()
+
+print(final_x)
+print(final_y)
+
 print("trying to connect")
 success = mambo.connect(num_retries=3)
 print("connected: %s" % success)
@@ -30,8 +57,14 @@ if (success):
     final_x = 0
     final_y = 0
     
+    #get repo we need to pull data from
+    repo = git.Repo('~/MediDrone')
+    o = repo.remotes.origin
+    o.pull()
+    
+    
     while not drone_to_fly:
-        if os.path.isfile('drone_init.txt')
+        if os.path.isfile('drone_init.txt'):
             file = open('drone_init.txt', 'r')
             lines = file.readline()
             file.close()
@@ -39,6 +72,7 @@ if (success):
             drone_to_fly = True
             final_x = int(line1(0))
             final_y = int(line1(1))
+            o.pull()
     
     #setting vertical speeds
     mambo.set_max_vertical_speed(0.05)
