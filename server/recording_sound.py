@@ -57,11 +57,9 @@ def SpeechAnalysis(input_sound):
             file.write("300")
             file.close()
             GitPush()
-            print('sending drone file')
             return True
         return False
     except:
-        print('no voice detected this block')
         return False
 
 reset(f_drone)  
