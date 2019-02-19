@@ -30,7 +30,7 @@ def reset(f_name):
         os.remove(f_name)
 
 #function to push all
-def GitPush(file_name):
+def GitPush():
     try:
         repo = git.Repo(repo_dir)
         repo.git.add('--all')
@@ -56,7 +56,7 @@ def SpeechAnalysis(input_sound):
             file.write("0 \n")
             file.write("100")
             file.close()
-            GitPush(f_drone)
+            GitPush()
             print('sending drone file')
             return True
         return False
