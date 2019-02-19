@@ -6,6 +6,8 @@ Author: Amy McGovern
 
 from pyparrot.Minidrone import Mambo
 import numpy as np
+import git
+import os 
 
 # If you are using BLE: you will need to change this to the address of YOUR mambo
 # if you are using Wifi, this can be ignored
@@ -24,15 +26,27 @@ print("connected: %s" % success)
 
 if (success):
     
-    #setting vertical speed
+    drone_to_fly = False
+    final_x = 0
+    final_y = 0
+    
+    while not drone_to_fly:
+        if os.path.isfile('drone_init.txt')
+            file = open('drone_init.txt', 'r')
+            lines = file.readline()
+            file.close()
+            line1 = lines(0).strip()
+            drone_to_fly = True
+            final_x = int(line1(0))
+            final_y = int(line1(1))
+    
+    #setting vertical speeds
     mambo.set_max_vertical_speed(0.05)
     
     #picking up care pack
     mambo.close_claw()
     
     #get final x and y
-    final_x = -100
-    final_y = -100
     rotate_angle = 0
     
     
