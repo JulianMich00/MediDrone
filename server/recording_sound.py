@@ -26,14 +26,14 @@ commit_message = 'drone_init.txt sent'
 
 #reset a file in git
 def reset(f_name):
-    if os.path.isfile('\server\drone_init.txt'):
+    if os.path.isfile('/server/drone_init.txt'):
         os.remove(f_name)
 
 #function to push all
 def GitPush():
     try:
         repo = git.Repo(repo_dir)
-        repo.git.add('--all')
+        repo.git.add('\server\drone_init.txt')
         repo.index.commit(commit_message)
         origin = repo.remote(name='origin')
         origin.push()
