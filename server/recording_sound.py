@@ -4,7 +4,9 @@ import soundfile as sf
 import git
 import os
 import speech_recognition as sr
-import time 
+import time
+
+#list of dependencies: SpeechRecognition, PyAudio, Numpy, GitPython
 
 #sample rate same as necessary by the inbuilt mic, change as necessary
 fs = 48000
@@ -16,7 +18,7 @@ duration = 5
 #file that executes drone movement
 f_drone = 'drone_init.txt'
 f_sound1 = 'sound1.wav'
-f_sound2 = 'sound2.wav'
+
 
 #find repo as well as add commit message
 repo_dir = '~/MediDrone'
@@ -28,7 +30,7 @@ def reset(f_name):
         os.remove(f_name)
 
 #function to push all
-def GitPush():
+def GitPush(file_name):
     try:
         repo = git.Repo(repo_dir)
         repo.git.add('--all')
@@ -50,20 +52,22 @@ def SpeechAnalysis(input_sound):
         message = r.recognize_google(audio)
         print(message)
         if ('help' in message) and ('medic' in message):
-            GitPush()
-            print('sending out drone')
+            file = open(f_drone, "w")
+            file.write("400 300")
+            file.close()
+            GitPush(f_drone)
+            print('sending drone file')
     except:
         print('no voice detected this block')
         
         
 reset(f_drone)
 reset(f_sound1)
-reset(f_sound2)
 
 while True:
     print('recording!')
     curr_data = sd.rec(int(duration * fs), samplerate=fs, channels=2)
-    time.sleep(duration)
+    time.sleep(duration - 0.3)
     print('stopped')
     
     #saving sound file
