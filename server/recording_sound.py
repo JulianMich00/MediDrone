@@ -68,6 +68,5 @@ while True:
     
     #saving sound file
     sf.write(f_sound1, curr_data, fs)
-    sd.wait(10)
     SpeechAnalysis(f_sound1)
     
