@@ -33,7 +33,7 @@ print("connected: %s" % success)
 drone_to_fly = False
     
 while not drone_to_fly:
-    mambo.smart_sleep(1)
+    mambo.smart_sleep(0.1)
     if os.path.isfile("drone_init.txt"):
         file = open('drone_init.txt', 'r')
         lines = file.readlines()
