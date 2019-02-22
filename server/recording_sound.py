@@ -68,7 +68,7 @@ def GitPull(repo_name):
     o = repo.remotes.origin
     o.pull()
 
-GitPull('~/MediDrone')
+
 reset(f_drone)  
 reset(f_sound1)
 

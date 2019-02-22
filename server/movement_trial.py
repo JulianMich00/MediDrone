@@ -13,6 +13,18 @@ def GitPull(repo_name):
     repo = git.Repo(repo_name)
     o = repo.remotes.origin
     o.pull()
+
+def GitPush():
+    try:
+        repo = git.Repo(repo_dir)
+        repo.git.add('--all')
+        repo.index.commit(commit_message)
+        origin = repo.remote(name='origin')
+        origin.push()
+    except:
+        print('error pushing')
+    finally:
+        print('done push!')
     
 # If you are using BLE: you will need to change this to the address of YOUR mambo
 # if you are using Wifi, this can be ignored
