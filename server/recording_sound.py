@@ -54,7 +54,7 @@ def SpeechAnalysis(input_sound):
         if ('help' in message) and ('medic' in message):
             file = open(f_drone, "w")
             file.write("0 \n")
-            file.write("300")
+            file.write("100")
             file.close()
             GitPush()
             return True
