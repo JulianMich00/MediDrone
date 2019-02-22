@@ -8,7 +8,7 @@ from pyparrot.Minidrone import Mambo
 import numpy as np
 import git
 import os
-from recording_sound import GitPush
+import recording_sound
 
 def GitPull(repo_name):
     repo = git.Repo(repo_name)

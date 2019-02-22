@@ -5,7 +5,7 @@ import git
 import os
 import speech_recognition as sr
 import time
-from movement_trial import GitPull()
+
 
 #list of dependencies: SpeechRecognition, PyAudio, Numpy, GitPython
 
@@ -62,6 +62,11 @@ def SpeechAnalysis(input_sound):
         return False
     except:
         return False
+
+def GitPull(repo_name):
+    repo = git.Repo(repo_name)
+    o = repo.remotes.origin
+    o.pull()
 
 GitPull('~/MediDrone')
 reset(f_drone)  
