@@ -8,7 +8,6 @@ from pyparrot.Minidrone import Mambo
 import numpy as np
 import git
 import os
-import recording_sound
 
 def GitPull(repo_name):
     repo = git.Repo(repo_name)
@@ -26,8 +25,10 @@ mambo = Mambo(mamboAddr, use_wifi=False)
 init_x = 0
 init_y = 0
 
+repo_dir = '/home/pi/MediDrone/MediDrone'
 
-GitPull('/home/pi/MediDrone/MediDrone')
+
+GitPull(repo_dir)
 
 print("trying to connect")
 success = mambo.connect(num_retries=3)
