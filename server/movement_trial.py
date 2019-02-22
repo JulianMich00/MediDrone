@@ -7,8 +7,14 @@ Author: Amy McGovern
 from pyparrot.Minidrone import Mambo
 import numpy as np
 import git
-import os 
+import os
+from recording_sound import GitPush
 
+def GitPull(repo_name):
+    repo = git.Repo(repo_name)
+    o = repo.remotes.origin
+    o.pull()
+    
 # If you are using BLE: you will need to change this to the address of YOUR mambo
 # if you are using Wifi, this can be ignored
 mamboAddr = "e0:14:fb:1a:3d:c6"
@@ -20,11 +26,8 @@ mambo = Mambo(mamboAddr, use_wifi=False)
 init_x = 0
 init_y = 0
 
-repo = git.Repo('/home/pi/MediDrone/MediDrone')
-print('init repo')
-o = repo.remotes.origin
-o.pull()
-print('pull from repo')
+
+GitPull('/home/pi/MediDrone/MediDrone')
 
 print("trying to connect")
 success = mambo.connect(num_retries=3)
@@ -33,7 +36,7 @@ print("connected: %s" % success)
 drone_to_fly = False
     
 while not drone_to_fly:
-    mambo.smart_sleep(0.1)
+     #mambo.smart_sleep(0.1)
     if os.path.isfile("drone_init.txt"):
         file = open('drone_init.txt', 'r')
         lines = file.readlines()
@@ -47,8 +50,10 @@ while not drone_to_fly:
                 final_y = line
             line_num += 1
         drone_to_fly = True
-    o.pull()
+    GitPull('/home/pi/MediDrone/MediDrone')
 
+final_x = 0
+final_y = 100
 print(final_x)
 print(final_y)
 
@@ -62,7 +67,7 @@ if (success):
     mambo.close_claw()
     
     #get final x and y
-    rotate_angle = 0
+    rotate_angle = 0.0
     
     
     #getting rotation angle
@@ -128,5 +133,7 @@ if (success):
     mambo.safe_land(5)
     mambo.smart_sleep(2)
 
+    os.remove('drone_init.txt')
+    GitPush()
     print("disconnect")
     mambo.disconnect()
